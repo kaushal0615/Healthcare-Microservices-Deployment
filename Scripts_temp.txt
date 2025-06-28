@@ -1,0 +1,37 @@
+cd "E:\IIITB\Winter Project\backend_services"
+$services = @("api-gateway", "appointment-service", "doctor-service", "patient-service", "service-registry")
+
+foreach ($service in $services) {
+    docker build -t 48483/$service .\$service
+    docker push 48483/$service
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+appointment-service : 8200
+doctor-service : 8201
+patient-service : 8202
+api-gateway : 8203
+service-registry : 8761
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+kubectl delete pods --all
+kubectl delete svc --all
+kubectl delete deployment --all
+kubectl delete statfulset --all
+kubectl apply -f ./
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+DROP USER 'root'@'%';
+CREATE USER 'root'@'%' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
